@@ -5,6 +5,7 @@ import {MaterialModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms'; 
+import { HttpModule } from '@angular/http';
 
 
 import 'Hammerjs';
@@ -24,6 +25,10 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { ProcessHttpmsgService } from './services/process-httpmsg.service';
+
+
+import { baseURL } from './shared/baseurl';
 
 
 
@@ -46,11 +51,14 @@ import { LeaderService } from './services/leader.service';
     FlexLayoutModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [DishService,
      PromotionService, 
-     LeaderService],
+     LeaderService,
+    {provide : 'BaseURL' , useValue:baseURL},
+    ProcessHttpmsgService],
   entryComponents: [
     LoginComponent    
   ],
