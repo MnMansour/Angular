@@ -16,16 +16,17 @@ import 'rxjs/add/operator/switchMap';
 export class DishdetailComponent implements OnInit {
 
   dish: Dish;
+  dishCopy= null;
   dishIds:number[];
   prev : number;
   next: number;
   commentForm:FormGroup;
+  errMess:string;
 
   formErrors = {
     'rating' : '',
     'comment' : '',
     'author' : '',
-    'date' : '',
   };
 
   validationMessages = {
@@ -51,8 +52,9 @@ export class DishdetailComponent implements OnInit {
     .subscribe(dishIds => this.dishIds = dishIds);
 
     this.route.params
-    .switchMap((params : Params)=> this.dishservice.getDish(+params['id']))
-    .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id)});
+    .switchMap((params: Params) => { return this.dishservice.getDish(+params['id']); })
+    .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id); },
+        errmess => { this.dish = null; this.errMess = <any>errmess; });
 
     this.createForm();
   }
@@ -82,8 +84,10 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dish.comments.push(this.commentForm.value);
-    console.log(this.commentForm.value)
+    this.dishCopy.comments.push(this.commentForm.value);
+    this.dishCopy.save()
+    .subscribe(dish => {this.dish = dish ; console.log(this.dish)} )
+    
     this.commentForm.reset({
       rating : '5',
       comment : '',

@@ -4,7 +4,7 @@ import { LEADERS } from '../shared/leaders';
 
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/Observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/delay';
 

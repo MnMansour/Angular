@@ -25,10 +25,11 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
-import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 
 
 import { baseURL } from './shared/baseurl';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 
 
 
@@ -52,13 +53,13 @@ import { baseURL } from './shared/baseurl';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   providers: [DishService,
      PromotionService, 
      LeaderService,
-    {provide : 'BaseURL' , useValue:baseURL},
-    ProcessHttpmsgService],
+    {provide : 'BaseURL' , useValue:baseURL}],
   entryComponents: [
     LoginComponent    
   ],
